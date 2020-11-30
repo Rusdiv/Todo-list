@@ -19,6 +19,11 @@ const useStyles = makeStyles({
 function ListItem(props) {
   const classes = useStyles();
 
+  const changeCheck = () => {
+    localStorage.setItem('tasks', props.tasks);
+    props.toggleCheckAC(props.id);
+  };
+
   return (
     <div className={classes.root}>
       <Accordion>
@@ -32,12 +37,7 @@ function ListItem(props) {
             aria-label="Acknowledge"
             onClick={(event) => event.stopPropagation()}
             onFocus={(event) => event.stopPropagation()}
-            control={
-              <Checkbox
-                onClick={() => props.toggleCheckAC(props.id)}
-                checked={props.checked}
-              />
-            }
+            control={<Checkbox onClick={changeCheck} checked={props.checked} />}
             label={props.name}
           />
         </AccordionSummary>
@@ -49,4 +49,10 @@ function ListItem(props) {
   );
 }
 
-export default connect(null, { toggleCheckAC })(ListItem);
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasksReducer.tasks,
+  };
+};
+
+export default connect(mapStateToProps, { toggleCheckAC })(ListItem);

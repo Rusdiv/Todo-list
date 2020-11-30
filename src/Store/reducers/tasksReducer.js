@@ -5,6 +5,8 @@ const initialState = {
   tasks: [{ name: 'Learn React', text: 'Learn React', checked: true, id: 1 }],
 };
 
+// const initialState = localStorage.getItem('tasks');
+
 let idCounter = 1;
 
 const tasksReducer = (state = initialState, action) => {

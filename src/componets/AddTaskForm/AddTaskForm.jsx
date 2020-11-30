@@ -23,17 +23,19 @@ function AppDialog(props) {
     setOpen(false);
   };
 
-  const handleChangeName = (e) => {
+  const ChangingName = (e) => {
     setTaskName(e.target.value);
   };
 
-  const handleChangeText = (e) => {
+  const ChangingText = (e) => {
     setTaskText(e.target.value);
   };
 
   const addTask = () => {
     props.addTaskAC(taskName, taskText);
     setOpen(false);
+    localStorage.setItem('tasks', props.tasks);
+    alert(props.tasks)
   };
 
   return (
@@ -51,7 +53,7 @@ function AppDialog(props) {
         <DialogTitle id="form-dialog-title">Add Task</DialogTitle>
         <DialogContent>
           <TextField
-            onChange={handleChangeName}
+            onChange={ChangingName}
             autoFocus
             value={taskName}
             color="secondary"
@@ -60,7 +62,7 @@ function AppDialog(props) {
             fullWidth
           />
           <TextField
-            onChange={handleChangeText}
+            onChange={ChangingText}
             value={taskText}
             color="secondary"
             label="Task text"
@@ -81,4 +83,10 @@ function AppDialog(props) {
   );
 }
 
-export default connect(null, { addTaskAC })(AppDialog);
+const mapStateToProps = (state) => {
+  return {
+    tasks: state.tasksReducer.tasks,
+  };
+};
+
+export default connect(mapStateToProps, { addTaskAC })(AppDialog);
