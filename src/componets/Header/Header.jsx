@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import Dialog from '../Dialog/Dialog';
+import AddTaskForm from '../AddTaskForm/AddTaskForm';
 
 export default function Header() {
   return (
@@ -8,7 +8,7 @@ export default function Header() {
       <AppBar position="static" color="secondary">
         <Toolbar>
           <Typography variant="h6">Todo List</Typography>
-          <Dialog />
+          <AddTaskForm />
         </Toolbar>
       </AppBar>
     </div>

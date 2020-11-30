@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import { addTaskAC } from '../../Store/reducers/tasksReducer';
+import { addTaskAC } from '../../store/reducers/tasksReducer';
 import { connect } from 'react-redux';
 
 function AppDialog(props) {
@@ -19,6 +19,10 @@ function AppDialog(props) {
     setOpen(true);
   };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleChangeName = (e) => {
     setTaskName(e.target.value);
   };
@@ -27,11 +31,7 @@ function AppDialog(props) {
     setTaskText(e.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleAdd = () => {
+  const addTask = () => {
     props.addTaskAC(taskName, taskText);
     setOpen(false);
   };
@@ -72,7 +72,7 @@ function AppDialog(props) {
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleAdd} color="secondary">
+          <Button onClick={addTask} color="secondary">
             Add
           </Button>
         </DialogActions>

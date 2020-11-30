@@ -7,6 +7,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { connect } from 'react-redux';
+import { toggleCheckAC } from '../../store/reducers/tasksReducer';
 
 const useStyles = makeStyles({
   root: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ListItem(props) {
+function ListItem(props) {
   const classes = useStyles();
 
   return (
@@ -30,7 +32,12 @@ export default function ListItem(props) {
             aria-label="Acknowledge"
             onClick={(event) => event.stopPropagation()}
             onFocus={(event) => event.stopPropagation()}
-            control={<Checkbox checked={props.checked} />}
+            control={
+              <Checkbox
+                onClick={() => props.toggleCheckAC(props.id)}
+                checked={props.checked}
+              />
+            }
             label={props.name}
           />
         </AccordionSummary>
@@ -41,3 +48,5 @@ export default function ListItem(props) {
     </div>
   );
 }
+
+export default connect(null, { toggleCheckAC })(ListItem);

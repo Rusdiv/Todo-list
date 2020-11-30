@@ -8,7 +8,13 @@ export default function List() {
   return (
     <div>
       {tasks.map((task) => (
-        <ListItem name={task.name} text={task.text} checked={task.checked} />
+        <ListItem
+          key={task.id}
+          name={task.name}
+          id={task.id}
+          text={task.text}
+          checked={task.checked}
+        />
       ))}
     </div>
   );
