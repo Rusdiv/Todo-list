@@ -8,7 +8,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { connect } from 'react-redux';
-import { toggleCheckAC } from '../../store/reducers/tasksReducer';
+import {
+  addToLocalStateAC,
+  toggleCheckAC,
+  removeTaskAC,
+} from '../../store/reducers/tasksReducer';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -20,8 +25,13 @@ function ListItem(props) {
   const classes = useStyles();
 
   const changeCheck = () => {
-    localStorage.setItem('tasks', props.tasks);
     props.toggleCheckAC(props.id);
+    props.addToLocalStateAC();
+  };
+
+  const removeTask = () => {
+    props.removeTaskAC(props.id);
+    props.addToLocalStateAC();
   };
 
   return (
@@ -40,6 +50,9 @@ function ListItem(props) {
             control={<Checkbox onClick={changeCheck} checked={props.checked} />}
             label={props.name}
           />
+          <Button onClick={removeTask} variant="contained" color="secondary">
+            Remove
+          </Button>
         </AccordionSummary>
         <AccordionDetails>
           <Typography color="textSecondary">{props.text}</Typography>
@@ -55,4 +68,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { toggleCheckAC })(ListItem);
+export default connect(mapStateToProps, {
+  removeTaskAC,
+  addToLocalStateAC,
+  toggleCheckAC,
+})(ListItem);

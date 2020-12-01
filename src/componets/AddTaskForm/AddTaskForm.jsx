@@ -7,7 +7,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
-import { addTaskAC } from '../../store/reducers/tasksReducer';
+import {
+  addTaskAC,
+  addToLocalStateAC,
+} from '../../store/reducers/tasksReducer';
 import { connect } from 'react-redux';
 
 function AppDialog(props) {
@@ -33,9 +36,8 @@ function AppDialog(props) {
 
   const addTask = () => {
     props.addTaskAC(taskName, taskText);
+    props.addToLocalStateAC();
     setOpen(false);
-    localStorage.setItem('tasks', props.tasks);
-    alert(props.tasks)
   };
 
   return (
@@ -89,4 +91,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addTaskAC })(AppDialog);
+export default connect(mapStateToProps, { addToLocalStateAC, addTaskAC })(
+  AppDialog
+);
